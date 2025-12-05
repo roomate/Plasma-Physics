@@ -1,0 +1,88 @@
+#################################################################
+#                                                               #
+#          #### ##    ## ########  ##     ## ########           #
+#           ##  ###   ## ##     ## ##     ##    ##              #
+#           ##  ####  ## ##     ## ##     ##    ##              #
+#           ##  ## ## ## ########  ##     ##    ##              #
+#           ##  ##  #### ##        ##     ##    ##              #
+#           ##  ##   ### ##        ##     ##    ##              #
+#          #### ##    ## ##         #######     ##              #
+#                                                               #
+#################################################################
+
+# Written by Benjamin Esteves, November, 2022.
+
+# This file is used a input for the class constructors. Each parameter here can be overwritten
+# after creation of the object, for parametric studies mainly.
+
+$$ INFLOW $$
+
+Kr
+
+
+$$ MAIN SPECIES $$ # used for computation of uB in the first order #TODO change this.
+
+Kr
+
+$$ PROPELLANT $$
+
+#kappa = 3.9e-3 * e / k  #  W/m/K
+
+$$ SPECIES $$ # add initialization
+
+e^-      = 1.e16
+Kr       = 1.e20
+Kr^+     = 1.e16
+
+$$ TEMPERATURES $$
+
+Te        = 5
+Tg        = 0.05
+
+$$ REACTIONS $$ 
+
+Kr + e^- -> Kr^+ + e^- + e^-            ! IONIZATION
+Kr + e^- -> Kr + e^-                    ! ELASTIC
+Kr + e^- -> Kr + e^-                    ! EXCITATION1
+Kr + e^- -> Kr + e^-                    ! EXCITATION2
+Kr + e^- -> Kr + e^-                    ! EXCITATION3
+Kr + e^- -> Kr + e^-                    ! EXCITATION4
+
+$$ RECOMBINATION $$
+# losses at the grids and neutralization at the walls are automatically added.
+
+# Kr^+ + Kr^+ -> Kr  ! recombination rate
+
+$$ RECOMBINATION $$
+# losses at the grids and neutralization at the walls are automatically added.
+# first species & second species & reco coefficient, stochiometry added automatically
+
+$$ THRUSTER $$
+
+R             = 6E-2                   # m, thruster radius
+L             = 10E-2                  # m, thruster length
+beta_neutrals = 0.3                    # no unit, Neutrals grid transparency
+beta_ions     = 0.7                    # no unit, Ions grid transparency
+R_coil        = 2                      # Ohms, coil resistance if fixed
+w             = 13.56E6 * 2 * pi       # 13.56 MHz, RF excitation frequency
+N             = 6                      # coil number
+Vgrids        = 1000                   # V grid voltage.
+grid_dist     = 1.E-3                  # m, distance btw grids
+l_coil        = 0.1                    # m, coil length
+r_coil        = 0.065                  # m, coil radius
+
+$$ PARAMETERS $$
+
+Q0                  = 25 * 4.47796e17  # s-1, injection flow rates, same as Grondein 2016
+wall_temperature    = 300 * k / e     # K
+Pabs                = 150E3           # W/m3
+stoch_heat          = True
+Tg                  = 300 * k / e     # for use when no gas heating.
+pressure            = 1e-3            # mbar, for use in the 'easy' algo.
+EPS                 = 1e12            # effective pumping speed in vacuum chamber in L/s
+gamma               = 0.02
+I_coil              = 5               # A
+sigma               = 1e-18           # m2 ion-neutral cross-section
+$$ ENDFILE $$
+
+# need a first function to check the format of this init file, or to add error raising in the parser.
